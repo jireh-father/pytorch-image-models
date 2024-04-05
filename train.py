@@ -951,7 +951,9 @@ def main():
     if best_metric is not None:
         results['best'] = results['all'][best_epoch - start_epoch]
         _logger.info('*** Best metric: {0} (epoch {1})'.format(best_metric, best_epoch))
-    print(f'--result\n{json.dumps(results, indent=4)}')
+
+    # print(f'--result\n{json.dumps(results, indent=4)}')
+    print(f'--result\n{results}')
 
 
 def train_one_epoch(
@@ -1212,8 +1214,8 @@ def validate(
     print_metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
                                  ('f1', f1_m.avg), ('recall', recall_m.avg), ('precision', precision_m.avg)])
     _logger.info(f'Validation results: {print_metrics}')
-    _logger.info(f'Classification report: {classification_report}')
-    _logger.info(f'Confusion matrix: {confusion_matrix}')
+    _logger.info(classification_report)
+    _logger.info(confusion_matrix)
 
     return metrics
 

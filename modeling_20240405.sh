@@ -1,5 +1,5 @@
 CUDA_VISIBLE_DEVICES=0 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/labeled_v1.3/hair_style_name --dataset ImageFolder --model efficientnet_b0 --pretrained \
- --num-classes 7 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_hair_style_name > log_tr_efb0_hair_style_name.log &
+ --num-classes 7 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_hair_style_name --eval-metric precision > log_tr_efb0_hair_style_name.log &
 
 # curl type
 CUDA_VISIBLE_DEVICES=1 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/labeled_v1.3/curl_type --dataset ImageFolder --model efficientnet_b0 --pretrained \
