@@ -1206,8 +1206,8 @@ def validate(
                     # f'Precision: {precision_m.val:>7.3f} ({precision_m.avg:>7.3f})'
                 )
 
-    print("len(total_preds)", len(total_preds))
-    print("len(total_targets)", len(total_targets))
+    print("len(total_preds)", len(total_preds), total_preds)
+    print("len(total_targets)", len(total_targets), total_targets)
     f1 = utils.multiclass_f1_score(total_preds, total_targets)
     recall = utils.multiclass_recall_score(total_preds, total_targets)
     precision = utils.multiclass_precision_score(total_preds, total_targets)
