@@ -1154,8 +1154,8 @@ def validate(
             total_targets += target_list
             acc1, acc5 = utils.accuracy(output, target, topk=(1, 5))
             f1 = utils.multiclass_f1_score(pred_list, target_list)
-            recall = utils.multiclass_recall(pred_list, target_list)
-            precision = utils.multiclass_precision(pred_list, target_list)
+            recall = utils.multiclass_recall_score(pred_list, target_list)
+            precision = utils.multiclass_precision_score(pred_list, target_list)
 
             if args.distributed:
                 reduced_loss = utils.reduce_tensor(loss.data, args.world_size)
