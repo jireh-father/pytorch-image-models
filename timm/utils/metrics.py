@@ -63,8 +63,8 @@ def get_confusion_matrix(pred, target):
     return confusion_matrix(target, pred)
 
 
-def get_classification_report(pred, target):
+def get_classification_report(pred, target, class_names=None):
     """
     Compute the classification report for a multi-class classification problem
     """
-    return classification_report(target, pred)
+    return classification_report(target, pred, target_names=class_names)

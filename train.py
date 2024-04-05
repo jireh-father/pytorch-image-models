@@ -733,6 +733,14 @@ def main():
         worker_seeding=args.worker_seeding,
     )
 
+    # using args.data_dir, make class_name using folder names
+    if args.data_dir:
+        class_names = [d.name for d in os.scandir(os.path.join(args.data_dir, "train")) if d.is_dir()]
+        # sort class_names
+        class_names.sort()
+    else:
+        class_names = None
+
     loader_eval = None
     if args.val_split:
         eval_workers = args.workers
@@ -884,6 +892,7 @@ def main():
                     args,
                     device=device,
                     amp_autocast=amp_autocast,
+                    class_names=class_names,
                 )
 
                 if model_ema is not None and not args.model_ema_force_cpu:
@@ -898,6 +907,7 @@ def main():
                         device=device,
                         amp_autocast=amp_autocast,
                         log_suffix=' (EMA)',
+                        class_names=class_names
                     )
                     eval_metrics = ema_eval_metrics
             else:
@@ -1111,7 +1121,8 @@ def validate(
         args,
         device=torch.device('cuda'),
         amp_autocast=suppress,
-        log_suffix=''
+        log_suffix='',
+        class_names=None
 ):
     batch_time_m = utils.AverageMeter()
     losses_m = utils.AverageMeter()
@@ -1194,7 +1205,7 @@ def validate(
                 )
 
     confusion_matrix = utils.get_confusion_matrix(total_preds, total_targets)
-    classification_report = utils.get_classification_report(total_preds, total_targets)
+    classification_report = utils.get_classification_report(total_preds, total_targets, class_names)
     metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
                            ('f1', f1_m.avg), ('recall', recall_m.avg), ('precision', precision_m.avg),
                            ('confusion_matrix', confusion_matrix), ('classification_report', classification_report)])
