@@ -1,25 +1,29 @@
 CUDA_VISIBLE_DEVICES=0 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/labeled_v1.3/hair_style_name --dataset ImageFolder --model efficientnet_b0 --pretrained \
- --num-classes 7 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_hair_style_name --eval-metric precision > log_tr_efb0_hair_style_name.log &
+ --num-classes 7 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_hair_style_name --eval-metric f1 > log_tr_efb0_hair_style_name.log &
+
+# batch 4
+CUDA_VISIBLE_DEVICES=0 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/labeled_v1.3/hair_style_name --dataset ImageFolder --model efficientnet_b0 --pretrained \
+ --num-classes 7 --img-size 224 --batch-size 4 --validation-batch-size 4 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_hair_style_name_batch4 --eval-metric f1 > log_tr_efb0_hair_style_name_batch4.log &
 
 # curl type
 CUDA_VISIBLE_DEVICES=1 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/labeled_v1.3/curl_type --dataset ImageFolder --model efficientnet_b0 --pretrained \
- --num-classes 6 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_curl_type > log_tr_efb0_curl_type.log &
+ --num-classes 6 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_curl_type --eval-metric f1 > log_tr_efb0_curl_type.log &
 
 # curl type merged c
 CUDA_VISIBLE_DEVICES=1 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/labeled_v1.3/curl_type_merge_c --dataset ImageFolder --model efficientnet_b0 --pretrained \
- --num-classes 5 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_curl_type_merged_c > log_tr_efb0_curl_type_merged_c.log &
+ --num-classes 5 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_curl_type_merged_c --eval-metric f1 > log_tr_efb0_curl_type_merged_c.log &
 
 CUDA_VISIBLE_DEVICES=1 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/labeled_v1.3/hair_length --dataset ImageFolder --model efficientnet_b0 --pretrained \
- --num-classes 4 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_hair_length > log_tr_efb0_hair_length.log &
+ --num-classes 4 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_hair_length --eval-metric f1 > log_tr_efb0_hair_length.log &
 
 CUDA_VISIBLE_DEVICES=1 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/labeled_v1.3/bangs --dataset ImageFolder --model efficientnet_b0 --pretrained \
- --num-classes 4 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_bangs > log_tr_efb0_bangs.log &
+ --num-classes 4 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_bangs --eval-metric f1 > log_tr_efb0_bangs.log &
 
 CUDA_VISIBLE_DEVICES=1 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/labeled_v1.3/cut --dataset ImageFolder --model efficientnet_b0 --pretrained \
- --num-classes 2 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_cut > log_tr_efb0_cut.log &
+ --num-classes 2 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_cut --eval-metric f1 > log_tr_efb0_cut.log &
 
 CUDA_VISIBLE_DEVICES=1 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/labeled_v1.3/hair_thickness --dataset ImageFolder --model efficientnet_b0 --pretrained \
- --num-classes 2 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_hair_thickness > log_tr_efb0_hair_thickness.log &
+ --num-classes 2 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_hair_thickness --eval-metric f1 > log_tr_efb0_hair_thickness.log &
 
 # b3
 # hair_style_name

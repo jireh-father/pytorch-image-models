@@ -1167,17 +1167,17 @@ def validate(
             total_preds += pred_list
             total_targets += target_list
             acc1, acc5 = utils.accuracy(output, target, topk=(1, 5))
-            f1 = utils.multiclass_f1_score(pred_list, target_list)
-            recall = utils.multiclass_recall_score(pred_list, target_list)
-            precision = utils.multiclass_precision_score(pred_list, target_list)
+            # f1 = utils.multiclass_f1_score(pred_list, target_list)
+            # recall = utils.multiclass_recall_score(pred_list, target_list)
+            # precision = utils.multiclass_precision_score(pred_list, target_list)
 
             if args.distributed:
                 reduced_loss = utils.reduce_tensor(loss.data, args.world_size)
                 acc1 = utils.reduce_tensor(acc1, args.world_size)
                 acc5 = utils.reduce_tensor(acc5, args.world_size)
-                f1 = utils.reduce_tensor(f1, args.world_size)
-                recall = utils.reduce_tensor(recall, args.world_size)
-                precision = utils.reduce_tensor(precision, args.world_size)
+                # f1 = utils.reduce_tensor(f1, args.world_size)
+                # recall = utils.reduce_tensor(recall, args.world_size)
+                # precision = utils.reduce_tensor(precision, args.world_size)
             else:
                 reduced_loss = loss.data
 
@@ -1187,9 +1187,9 @@ def validate(
             losses_m.update(reduced_loss.item(), input.size(0))
             top1_m.update(acc1.item(), output.size(0))
             top5_m.update(acc5.item(), output.size(0))
-            f1_m.update(f1, output.size(0))
-            recall_m.update(recall, output.size(0))
-            precision_m.update(precision, output.size(0))
+            # f1_m.update(f1, output.size(0))
+            # recall_m.update(recall, output.size(0))
+            # precision_m.update(precision, output.size(0))
 
             batch_time_m.update(time.time() - end)
             end = time.time()
@@ -1201,16 +1201,19 @@ def validate(
                     f'Loss: {losses_m.val:>7.3f} ({losses_m.avg:>6.3f})  '
                     f'Acc@1: {top1_m.val:>7.3f} ({top1_m.avg:>7.3f})  '
                     f'Acc@5: {top5_m.val:>7.3f} ({top5_m.avg:>7.3f})'
-                    f'F1: {f1_m.val:>7.3f} ({f1_m.avg:>7.3f})'
-                    f'Recall: {recall_m.val:>7.3f} ({recall_m.avg:>7.3f})'
-                    f'Precision: {precision_m.val:>7.3f} ({precision_m.avg:>7.3f})'
+                    # f'F1: {f1_m.val:>7.3f} ({f1_m.avg:>7.3f})'
+                    # f'Recall: {recall_m.val:>7.3f} ({recall_m.avg:>7.3f})'
+                    # f'Precision: {precision_m.val:>7.3f} ({precision_m.avg:>7.3f})'
                 )
-
+    f1 = utils.multiclass_f1_score(total_preds, total_targets)
+    recall = utils.multiclass_recall_score(total_preds, total_targets)
+    precision = utils.multiclass_precision_score(total_preds, total_targets)
     confusion_matrix = utils.get_confusion_matrix(total_preds, total_targets)
     classification_report = utils.get_classification_report(total_preds, total_targets, class_names)
     metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
-                           ('f1', f1_m.avg), ('recall', recall_m.avg), ('precision', precision_m.avg),
-                           ('confusion_matrix', confusion_matrix), ('classification_report', classification_report)])
+                           ('f1', f1), ('recall', recall), ('precision', precision),
+                           ('classification_report', classification_report), ('confusion_matrix', confusion_matrix)])
+
     print_metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
                                  ('f1', f1_m.avg), ('recall', recall_m.avg), ('precision', precision_m.avg)])
     _logger.info(f'Validation results: {print_metrics}')
