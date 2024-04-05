@@ -1187,12 +1187,20 @@ def validate(
                     f'Loss: {losses_m.val:>7.3f} ({losses_m.avg:>6.3f})  '
                     f'Acc@1: {top1_m.val:>7.3f} ({top1_m.avg:>7.3f})  '
                     f'Acc@5: {top5_m.val:>7.3f} ({top5_m.avg:>7.3f})'
+                    f'F1: {f1_m.val:>7.3f} ({f1_m.avg:>7.3f})'
+                    f'Recall: {recall_m.val:>7.3f} ({recall_m.avg:>7.3f})'
+                    f'Precision: {precision_m.val:>7.3f} ({precision_m.avg:>7.3f})'
                 )
+
     confusion_matrix = utils.get_confusion_matrix(total_preds, total_targets)
     classification_report = utils.get_classification_report(total_preds, total_targets)
     metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
                             ('f1', f1_m.avg), ('recall', recall_m.avg), ('precision', precision_m.avg),
                             ('confusion_matrix', confusion_matrix), ('classification_report', classification_report)])
+
+    _logger.info(f'Classification report: {classification_report}')
+    _logger.info(f'Confusion matrix: {confusion_matrix}')
+    _logger.info(f'Validation results: {metrics}')
 
     return metrics
 
