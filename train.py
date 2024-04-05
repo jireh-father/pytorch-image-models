@@ -1211,12 +1211,9 @@ def validate(
     confusion_matrix = utils.get_confusion_matrix(total_preds, total_targets)
     classification_report = utils.get_classification_report(total_preds, total_targets, class_names)
     metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
-                           ('f1', f1), ('recall', recall), ('precision', precision),
-                           ('classification_report', classification_report), ('confusion_matrix', confusion_matrix)])
+                           ('f1', f1), ('recall', recall), ('precision', precision)])
 
-    print_metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
-                                 ('f1', f1_m.avg), ('recall', recall_m.avg), ('precision', precision_m.avg)])
-    _logger.info(f'Validation results: {print_metrics}')
+    _logger.info(f'Validation results: {metrics}')
     _logger.info(classification_report)
     _logger.info(confusion_matrix)
 
