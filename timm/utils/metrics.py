@@ -37,8 +37,6 @@ def multiclass_f1_score(output, target):
     """
     Compute the F1 score for a multi-class classification problem
     """
-    _, pred = output.topk(1, 1, True, True)
-    pred = pred.t()
     return f1_score(target, pred, average='macro')
 
 
@@ -46,8 +44,6 @@ def multiclass_recall_score(output, target):
     """
     Compute the recall score for a multi-class classification problem
     """
-    _, pred = output.topk(1, 1, True, True)
-    pred = pred.t()
     return recall_score(target, pred, average='macro')
 
 
@@ -55,8 +51,6 @@ def multiclass_precision_score(output, target):
     """
     Compute the precision score for a multi-class classification problem
     """
-    _, pred = output.topk(1, 1, True, True)
-    pred = pred.t()
     return precision_score(target, pred, average='macro')
 
 
@@ -64,8 +58,6 @@ def confusion_matrix(output, target):
     """
     Compute the confusion matrix for a multi-class classification problem
     """
-    _, pred = output.topk(1, 1, True, True)
-    pred = pred.t()
     return confusion_matrix(target, pred)
 
 
@@ -73,6 +65,4 @@ def classification_report(output, target):
     """
     Compute the classification report for a multi-class classification problem
     """
-    _, pred = output.topk(1, 1, True, True)
-    pred = pred.t()
     return classification_report(target, pred)
