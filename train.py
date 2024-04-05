@@ -1116,6 +1116,12 @@ def validate(
     losses_m = utils.AverageMeter()
     top1_m = utils.AverageMeter()
     top5_m = utils.AverageMeter()
+    f1_m = utils.AverageMeter()
+    recall_m = utils.AverageMeter()
+    precision_m = utils.AverageMeter()
+
+    total_outputs = []
+    total_targets = []
 
     model.eval()
 
@@ -1142,12 +1148,22 @@ def validate(
                     target = target[0:target.size(0):reduce_factor]
 
                 loss = loss_fn(output, target)
+            target_list = target.cpu().numpy().tolist()
+            output_list = output.cpu().numpy().tolist()
+            total_outputs += output_list
+            total_targets += target_list
             acc1, acc5 = utils.accuracy(output, target, topk=(1, 5))
+            f1 = utils.multiclass_f1_score(output_list, target_list)
+            recall = utils.multiclass_recall(output_list, target_list)
+            precision = utils.multiclass_precision(output_list, target_list)
 
             if args.distributed:
                 reduced_loss = utils.reduce_tensor(loss.data, args.world_size)
                 acc1 = utils.reduce_tensor(acc1, args.world_size)
                 acc5 = utils.reduce_tensor(acc5, args.world_size)
+                f1 = utils.reduce_tensor(f1, args.world_size)
+                recall = utils.reduce_tensor(recall, args.world_size)
+                precision = utils.reduce_tensor(precision, args.world_size)
             else:
                 reduced_loss = loss.data
 
@@ -1157,6 +1173,9 @@ def validate(
             losses_m.update(reduced_loss.item(), input.size(0))
             top1_m.update(acc1.item(), output.size(0))
             top5_m.update(acc5.item(), output.size(0))
+            f1_m.update(f1, output.size(0))
+            recall_m.update(recall, output.size(0))
+            precision_m.update(precision, output.size(0))
 
             batch_time_m.update(time.time() - end)
             end = time.time()
@@ -1169,8 +1188,11 @@ def validate(
                     f'Acc@1: {top1_m.val:>7.3f} ({top1_m.avg:>7.3f})  '
                     f'Acc@5: {top5_m.val:>7.3f} ({top5_m.avg:>7.3f})'
                 )
-
-    metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg)])
+    confusion_matrix = utils.confusion_matrix(total_outputs, total_targets)
+    classification_report = utils.classification_report(total_outputs, total_targets)
+    metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
+                            ('f1', f1_m.avg), ('recall', recall_m.avg), ('precision', precision_m.avg),
+                            ('confusion_matrix', confusion_matrix), ('classification_report', classification_report)])
 
     return metrics
 
