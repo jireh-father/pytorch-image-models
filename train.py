@@ -1130,9 +1130,9 @@ def validate(
     losses_m = utils.AverageMeter()
     top1_m = utils.AverageMeter()
     top5_m = utils.AverageMeter()
-    f1_m = utils.AverageMeter()
-    recall_m = utils.AverageMeter()
-    precision_m = utils.AverageMeter()
+    # f1_m = utils.AverageMeter()
+    # recall_m = utils.AverageMeter()
+    # precision_m = utils.AverageMeter()
 
     total_preds = []
     total_targets = []
@@ -1205,6 +1205,9 @@ def validate(
                     # f'Recall: {recall_m.val:>7.3f} ({recall_m.avg:>7.3f})'
                     # f'Precision: {precision_m.val:>7.3f} ({precision_m.avg:>7.3f})'
                 )
+
+    print("len(total_preds[0])", len(total_preds[0]))
+    print("len(total_targets[0])", len(total_targets[0]))
     f1 = utils.multiclass_f1_score(total_preds, total_targets)
     recall = utils.multiclass_recall_score(total_preds, total_targets)
     precision = utils.multiclass_precision_score(total_preds, total_targets)
