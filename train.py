@@ -893,6 +893,7 @@ def main():
                     device=device,
                     amp_autocast=amp_autocast,
                     class_names=class_names,
+                    num_classes=args.num_classes,
                 )
 
                 if model_ema is not None and not args.model_ema_force_cpu:
@@ -907,7 +908,8 @@ def main():
                         device=device,
                         amp_autocast=amp_autocast,
                         log_suffix=' (EMA)',
-                        class_names=class_names
+                        class_names=class_names,
+                        num_classes=args.num_classes,
                     )
                     eval_metrics = ema_eval_metrics
             else:
@@ -1124,6 +1126,7 @@ def validate(
         device=torch.device('cuda'),
         amp_autocast=suppress,
         log_suffix='',
+        num_classes=0,
         class_names=None
 ):
     batch_time_m = utils.AverageMeter()
@@ -1208,9 +1211,9 @@ def validate(
 
     print("len(total_preds)", len(total_preds), total_preds)
     print("len(total_targets)", len(total_targets), total_targets)
-    f1 = utils.multiclass_f1_score(total_preds, total_targets)
-    recall = utils.multiclass_recall_score(total_preds, total_targets)
-    precision = utils.multiclass_precision_score(total_preds, total_targets)
+    f1 = utils.multiclass_f1_score(total_preds, total_targets, num_classes=num_classes)
+    recall = utils.multiclass_recall_score(total_preds, total_targets, num_classes=num_classes)
+    precision = utils.multiclass_precision_score(total_preds, total_targets, num_classes=num_classes)
     confusion_matrix = utils.get_confusion_matrix(total_preds, total_targets)
     classification_report = utils.get_classification_report(total_preds, total_targets, class_names)
     metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),

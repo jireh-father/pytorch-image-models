@@ -35,25 +35,25 @@ def accuracy(output, target, topk=(1,)):
     return [correct[:min(k, maxk)].reshape(-1).float().sum(0) * 100. / batch_size for k in topk]
 
 
-def multiclass_f1_score(pred, target):
+def multiclass_f1_score(pred, target, num_classes=0):
     """
     Compute the F1 score for a multi-class classification problem
     """
-    return f1_score(target, pred, average='macro')
+    return f1_score(target, pred, average='macro', labels=list(range(num_classes)))
 
 
-def multiclass_recall_score(pred, target):
+def multiclass_recall_score(pred, target, num_classes=0):
     """
     Compute the recall score for a multi-class classification problem
     """
-    return recall_score(target, pred, average='macro')
+    return recall_score(target, pred, average='macro', labels=list(range(num_classes)))
 
 
-def multiclass_precision_score(pred, target):
+def multiclass_precision_score(pred, target, num_classes=0):
     """
     Compute the precision score for a multi-class classification problem
     """
-    return precision_score(target, pred, average='macro')
+    return precision_score(target, pred, average='macro', labels=list(range(num_classes)))
 
 
 def get_confusion_matrix(pred, target):
