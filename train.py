@@ -954,6 +954,15 @@ def main():
         results['best'] = results['all'][best_epoch - start_epoch]
         _logger.info('*** Best metric: {0} (epoch {1})'.format(best_metric, best_epoch))
         _logger.info(results['best'])
+        # metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
+        #                            ('f1', f1), ('recall', recall), ('precision', precision),
+        #                             ('confusion_matrix', confusion_matrix), ('classification_report', classification_report)])
+        _logger.info(f"best accuracy: {results['best']['validation']['top1']}")
+        _logger.info(f"best f1: {results['best']['validation']['f1']}")
+        _logger.info(f"best recall: {results['best']['validation']['recall']}")
+        _logger.info(f"best precision: {results['best']['validation']['precision']}")
+        _logger.info(results['best']['validation']['classification_report'])
+        _logger.info(results['best']['validation']['confusion_matrix'])
 
     # print(f'--result\n{json.dumps(results, indent=4)}')
     # print(f'--result\n{results}')
@@ -1217,9 +1226,9 @@ def validate(
     classification_report = utils.get_classification_report(total_preds, total_targets, class_names)
     metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
                            ('f1', f1), ('recall', recall), ('precision', precision),
-                            ('confusion_matrix', confusion_matrix), ('classification_report', classification_report)])
+                           ('confusion_matrix', confusion_matrix), ('classification_report', classification_report)])
     print_metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
-                           ('f1', f1), ('recall', recall), ('precision', precision),])
+                                 ('f1', f1), ('recall', recall), ('precision', precision), ])
 
     _logger.info(f'Validation results: {print_metrics}')
     _logger.info(classification_report)
