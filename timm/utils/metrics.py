@@ -56,14 +56,14 @@ def multiclass_precision_score(pred, target):
     return precision_score(target, pred, average='macro')
 
 
-def confusion_matrix(pred, target):
+def get_confusion_matrix(pred, target):
     """
     Compute the confusion matrix for a multi-class classification problem
     """
     return confusion_matrix(target, pred)
 
 
-def classification_report(pred, target):
+def get_classification_report(pred, target):
     """
     Compute the classification report for a multi-class classification problem
     """

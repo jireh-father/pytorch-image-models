@@ -8,7 +8,7 @@ from .distributed import distribute_bn, reduce_tensor, init_distributed_device,\
 from .jit import set_jit_legacy, set_jit_fuser
 from .log import setup_default_logging, FormatterNoInfo
 from .metrics import AverageMeter, accuracy, multiclass_f1_score, multiclass_recall_score, multiclass_precision_score, \
-    confusion_matrix, classification_report
+    get_confusion_matrix, get_classification_report
 from .misc import natural_key, add_bool_arg, ParseKwargs
 from .model import unwrap_model, get_state_dict, freeze, unfreeze, reparameterize_model
 from .model_ema import ModelEma, ModelEmaV2, ModelEmaV3

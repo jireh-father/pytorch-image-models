@@ -1188,8 +1188,8 @@ def validate(
                     f'Acc@1: {top1_m.val:>7.3f} ({top1_m.avg:>7.3f})  '
                     f'Acc@5: {top5_m.val:>7.3f} ({top5_m.avg:>7.3f})'
                 )
-    confusion_matrix = utils.confusion_matrix(total_preds, total_targets)
-    classification_report = utils.classification_report(total_preds, total_targets)
+    confusion_matrix = utils.get_confusion_matrix(total_preds, total_targets)
+    classification_report = utils.get_classification_report(total_preds, total_targets)
     metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
                             ('f1', f1_m.avg), ('recall', recall_m.avg), ('precision', precision_m.avg),
                             ('confusion_matrix', confusion_matrix), ('classification_report', classification_report)])
