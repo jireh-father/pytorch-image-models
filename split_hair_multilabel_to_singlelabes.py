@@ -44,6 +44,13 @@ val_to_key_map = {
     "faceline bangs": "bangs",
     "thin hair": "hair_thickness",
     "thick hair": "hair_thickness",
+    "9:1 hair part": "hair_part",
+    "8:2 hair part": "hair_part",
+    "7:3 hair part": "hair_part",
+    "5:5 hair part": "hair_part",
+    "3:7 hair part": "hair_part",
+    "2:8 hair part": "hair_part",
+    "1:9 hair part": "hair_part",
 }
 
 
