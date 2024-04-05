@@ -953,9 +953,10 @@ def main():
     if best_metric is not None:
         results['best'] = results['all'][best_epoch - start_epoch]
         _logger.info('*** Best metric: {0} (epoch {1})'.format(best_metric, best_epoch))
+        _logger.info(results['best'])
 
     # print(f'--result\n{json.dumps(results, indent=4)}')
-    print(f'--result\n{results}')
+    # print(f'--result\n{results}')
 
 
 def train_one_epoch(
@@ -1215,9 +1216,12 @@ def validate(
     confusion_matrix = utils.get_confusion_matrix(total_preds, total_targets)
     classification_report = utils.get_classification_report(total_preds, total_targets, class_names)
     metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
-                           ('f1', f1), ('recall', recall), ('precision', precision)])
+                           ('f1', f1), ('recall', recall), ('precision', precision),
+                            ('confusion_matrix', confusion_matrix), ('classification_report', classification_report)])
+    print_metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
+                           ('f1', f1), ('recall', recall), ('precision', precision),])
 
-    _logger.info(f'Validation results: {metrics}')
+    _logger.info(f'Validation results: {print_metrics}')
     _logger.info(classification_report)
     _logger.info(confusion_matrix)
 
