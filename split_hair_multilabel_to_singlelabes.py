@@ -58,6 +58,8 @@ merge_class_map = {
     "8:2 hair part": "7:3 hair part",
     "1:9 hair part": "3:7 hair part",
     "2:8 hair part": "3:7 hair part",
+    "s3-curl perm": "s-curl perm",
+    "ss-curl perm": "s-curl perm",
 }
 
 
