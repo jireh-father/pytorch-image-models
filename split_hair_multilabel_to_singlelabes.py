@@ -53,6 +53,13 @@ val_to_key_map = {
     "1:9 hair part": "hair_part",
 }
 
+merge_class_map = {
+    "9:1 hair part": "7:3 hair part",
+    "8:2 hair part": "7:3 hair part",
+    "1:9 hair part": "3:7 hair part",
+    "2:8 hair part": "3:7 hair part",
+}
+
 
 def split_tags(tag_str, merge_c_curl):
     tags = []
@@ -81,6 +88,8 @@ def main(args):
         tags = split_tags(label_data[file_name]["tags"], args.merge_c_curl)
         tag_set.update(tags)
         for tag in tags:
+            if tag in merge_class_map:
+                tag = merge_class_map[tag]
             tag_stat[tag] += 1
             if tag in task_dict[val_to_key_map[tag]]:
                 task_dict[val_to_key_map[tag]][tag].append(f"{file_name}.jpg")
@@ -144,4 +153,3 @@ if __name__ == '__main__':
 
 # CUDA_VISIBLE_DEVICES=1 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/ml_to_sl/cut --dataset ImageFolder --model efficientnet_b0 --pretrained \
 # --num-classes 2 --img-size 224 --batch-size 128 --validation-batch-size 128 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_cut > log_tr_efb0_cut.log &
-
