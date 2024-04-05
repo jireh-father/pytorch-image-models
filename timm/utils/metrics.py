@@ -3,6 +3,8 @@
 Hacked together by / Copyright 2020 Ross Wightman
 """
 
+from sklearn.metrics import f1_score, recall_score, precision_score, confusion_matrix, classification_report
+
 
 class AverageMeter:
     """Computes and stores the average and current value"""
