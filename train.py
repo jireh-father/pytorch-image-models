@@ -1198,9 +1198,9 @@ def validate(
     metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
                            ('f1', f1_m.avg), ('recall', recall_m.avg), ('precision', precision_m.avg),
                            ('confusion_matrix', confusion_matrix), ('classification_report', classification_report)])
-
-    _logger.info(f'Validation results: {OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
-                                                     ('f1', f1_m.avg), ('recall', recall_m.avg), ('precision', precision_m.avg)])}')
+    print_metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg),
+                                 ('f1', f1_m.avg), ('recall', recall_m.avg), ('precision', precision_m.avg)])
+    _logger.info(f'Validation results: {print_metrics}')
     _logger.info(f'Classification report: {classification_report}')
     _logger.info(f'Confusion matrix: {confusion_matrix}')
 
