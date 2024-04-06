@@ -28,7 +28,9 @@ CUDA_VISIBLE_DEVICES=0 nohup python -u train.py --data-dir /source/pytorch-image
 CUDA_VISIBLE_DEVICES=0 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/labeled_v1.3/hair_thickness --dataset ImageFolder --model efficientnet_b0 --pretrained \
  --num-classes 2 --img-size 224 --batch-size 32 --validation-batch-size 32 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_hair_thickness --eval-metric f1 --cutmix 0.4 --mixup 0.5 --drop 0.1 --crop-pct 1.0 > log_tr_efb0_hair_thickness.log &
 
-# curl
+# curl_width
+CUDA_VISIBLE_DEVICES=2 nohup python -u train.py --data-dir /source/pytorch-image-models/dataset/labeled_v1.3/curl_width --dataset ImageFolder --model efficientnet_b0 --pretrained \
+ --num-classes 2 --img-size 224 --batch-size 32 --validation-batch-size 32 --epochs 100 --log-interval 100 --output ./output/efficientnet_b0_curl_width --eval-metric f1 --cutmix 0.4 --mixup 0.5 --drop 0.1 --crop-pct 1.0 > log_tr_efb0_curl_width.log &
 
 # inference
 CUDA_VISIBLE_DEVICES=0 nohup python -u inference.py --data-dir ./dataset/unlabeled --dataset ImageFolder --model efficientnet_b0 --img-size 224 --crop-pct 1.0 --num-classes 7 --checkpoint ./output/efficientnet_b0_hair_style_name/20240405-143701-efficientnet_b0-224/model_best.pth.tar  --results-dir ./infer_results --results-format json --results-file infer_hair_style --include-index > log_infer_hair_style &
@@ -37,6 +39,7 @@ CUDA_VISIBLE_DEVICES=0 nohup python -u inference.py --data-dir ./dataset/unlabel
 CUDA_VISIBLE_DEVICES=0 nohup python -u inference.py --data-dir ./dataset/unlabeled --dataset ImageFolder --model efficientnet_b0 --img-size 224 --crop-pct 1.0 --num-classes 4 --checkpoint ./output/efficientnet_b0_bangs/20240405-145843-efficientnet_b0-224/model_best.pth.tar  --results-dir ./infer_results --results-format json --results-file infer_bangs --include-index > log_infer_bangs &
 CUDA_VISIBLE_DEVICES=2 nohup python -u inference.py --data-dir ./dataset/unlabeled --dataset ImageFolder --model efficientnet_b0 --img-size 224 --crop-pct 1.0 --num-classes 2 --checkpoint ./output/efficientnet_b0_cut/20240405-191529-efficientnet_b0-224/model_best.pth.tar  --results-dir ./infer_results --results-format json --results-file infer_cut --include-index > log_infer_cut &
 CUDA_VISIBLE_DEVICES=2 nohup python -u inference.py --data-dir ./dataset/unlabeled --dataset ImageFolder --model efficientnet_b0 --img-size 224 --crop-pct 1.0 --num-classes 2 --checkpoint ./output/efficientnet_b0_hair_thickness/20240405-191530-efficientnet_b0-224/model_best.pth.tar  --results-dir ./infer_results --results-format json --results-file infer_hair_thickness --include-index > log_infer_hair_thickness &
+CUDA_VISIBLE_DEVICES=2 nohup python -u inference.py --data-dir ./dataset/unlabeled --dataset ImageFolder --model efficientnet_b0 --img-size 224 --crop-pct 1.0 --num-classes 2 --checkpoint ./output/efficientnet_b0_curl_width/20240406-134138-efficientnet_b0-224/model_best.pth.tar  --results-dir ./infer_results --results-format json --results-file infer_curl_width --include-index > log_infer_curl_width &
 
 CUDA_VISIBLE_DEVICES=0 nohup python -u inference.py --data-dir ./dataset/unlabeled --dataset ImageFolder --model efficientnet_b0 --img-size 224 --crop-pct 1.0 --num-classes 3 --checkpoint ./output/efficientnet_b0_hair_part/20240405-145842-efficientnet_b0-224/model_best.pth.tar  --results-dir ./infer_results --results-format json --results-file infer_hair_part --include-index > log_infer_hair_part &
 
