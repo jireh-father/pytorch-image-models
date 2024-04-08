@@ -114,7 +114,7 @@ val_to_key_map = {
     'ash brown hair': 'hair_color',
     'ash blonde hair': 'hair_color',
     'ash blue hair': 'hair_color',
-    'ash khaki hair': 'hair_color',
+    # 'ash khaki hair': 'hair_color',
     'ash khaki brown hair': 'hair_color',
     'ash purple hair': 'hair_color',
     'ash pink hair': 'hair_color',
@@ -123,14 +123,14 @@ val_to_key_map = {
     'khaki brown hair': 'hair_color',
     'pink brown hair': 'hair_color',
     'red hair': 'hair_color',
-    'multicolored hair': 'hair_color',
+    # 'multicolored hair': 'hair_color',
     'grey hair': 'hair_color',
     'pink hair': 'hair_color',
     'blue hair': 'hair_color',
     'orange hair': 'hair_color',
     'white hair': 'hair_color',
-    'gradient hair': 'hair_color',
-    'two-tone hair': 'hair_color',
+    # 'gradient hair': 'hair_color',
+    # 'two-tone hair': 'hair_color',
     'green hair': 'hair_color',
 }
 
@@ -141,6 +141,8 @@ merge_class_map = {
     "2:8 hair part": "3:7 hair part",
     "s3-curl perm": "s-curl perm",
     "ss-curl perm": "s-curl perm",
+    "mushroom blonde hair": "blonde hair",
+    "ash khaki brown hair": "khaki brown hair",
 }
 
 
