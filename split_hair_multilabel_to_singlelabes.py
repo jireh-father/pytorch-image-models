@@ -109,7 +109,7 @@ val_to_key_map = {
     # 'mushroom blonde hair': 'hair_color',
     'milk brown hair': 'hair_color',
     'ash gray hair': 'hair_color',
-    'ash violet hair': 'hair_color',
+    # 'ash violet hair': 'hair_color',
     'ash beige hair': 'hair_color',
     'ash brown hair': 'hair_color',
     # 'ash blonde hair': 'hair_color',
