@@ -323,6 +323,9 @@ group.add_argument('--mixup-off-epoch', default=0, type=int, metavar='N',
                    help='Turn off mixup after this epoch, disabled if 0 (default: 0)')
 group.add_argument('--smoothing', type=float, default=0.1,
                    help='Label smoothing (default: 0.1)')
+# use_class_weights
+group.add_argument('--use-class-weights', action='store_true', default=False,
+                   help='Use class weights for loss calculation')
 group.add_argument('--train-interpolation', type=str, default='random',
                    help='Training interpolation (random, bilinear, bicubic default: "random")')
 group.add_argument('--drop', type=float, default=0.0, metavar='PCT',
@@ -787,7 +790,21 @@ def main():
             )
         else:
             train_loss_fn = LabelSmoothingCrossEntropy(smoothing=args.smoothing)
+    elif args.use_class_weights:
+        class_dirs = os.path.join(args.data_dir, "train", "*")
+        class_dirs.sort()
+
+        label_count = []
+        for class_dir in class_dirs:
+            label_count.append(len(os.listdir(class_dir)))
+        max_count = max(label_count)
+        weights = [math.log(max_count / cnt) + 1 for cnt in label_count]
+        print("class_weights", weights)
+        class_weights = torch.FloatTensor(weights).to(device)
+
+        train_loss_fn = nn.CrossEntropyLoss(weight=class_weights)
     else:
+
         train_loss_fn = nn.CrossEntropyLoss()
     train_loss_fn = train_loss_fn.to(device=device)
     validate_loss_fn = nn.CrossEntropyLoss().to(device=device)
